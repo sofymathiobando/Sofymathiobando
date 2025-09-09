@@ -3,155 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visor de Imágenes - Estilo Alpina</title>
+    <title>Imagen Alpina</title>
     <style>
-        /* --- Paleta de Colores Inspirada en Alpina --- */
-        :root {
-            --alpina-azul-principal: #0057A8; /* Azul corporativo de Alpina */
-            --alpina-azul-claro: #E6F2FA;    /* Un tono suave para fondos */
-            --texto-oscuro: #333333;
-            --blanco-puro: #FFFFFF;
-            --borde-color: #BBDDF2;
-        }
-
-        /* --- Estilos Generales --- */
         body {
+            background-color: #1450C9; /* Un azul de la paleta de Alpina */
+            color: white;
             font-family: Arial, sans-serif;
-            background-color: var(--alpina-azul-claro);
-            color: var(--texto-oscuro);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* --- Contenedor Principal --- */
-        .container {
-            background-color: var(--blanco-puro);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 90%;
-            max-width: 500px;
+            padding: 20px;
         }
-
-        /* --- Encabezado --- */
-        .header {
-            background-color: var(--alpina-azul-principal);
-            color: var(--blanco-puro);
-            padding: 1.5rem;
-            margin: -2.5rem -2.5rem 2rem -2.5rem;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 1.8em;
-        }
-
-        /* --- Área de Carga de Imagen --- */
-        .upload-wrapper {
-            border: 2px dashed var(--borde-color);
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
             border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .upload-wrapper p {
-            margin: 0 0 1rem 0;
-            font-size: 1.1em;
-        }
-
-        /* --- Botón Personalizado --- */
-        .upload-btn {
-            background-color: var(--alpina-azul-principal);
-            color: var(--blanco-puro);
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
             display: inline-block;
-            transition: background-color 0.3s;
         }
-
-        .upload-btn:hover {
-            background-color: #004687; /* Un azul un poco más oscuro */
-        }
-
-        /* Ocultar el input de archivo original */
-        input[type="file"] {
-            display: none;
-        }
-
-        /* --- Vista Previa de la Imagen --- */
-        #image-preview {
-            margin-top: 1.5rem;
-        }
-
-        #image-preview img {
+        img {
             max-width: 100%;
-            border-radius: 10px;
-            border: 1px solid var(--borde-color);
-        }
-
-        #image-preview .placeholder {
-            color: #888;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="header">
-            <h1>Sube tu Imagen</h1>
-        </div>
-
-        <div class="upload-wrapper">
-            <p>Selecciona un archivo de imagen</p>
-            <label for="file-upload" class="upload-btn">
-                Elegir Archivo
-            </label>
-            <input type="file" id="file-upload" accept="image/*">
-        </div>
-
-        <div id="image-preview">
-            <p class="placeholder">La imagen seleccionada aparecerá aquí.</p>
-        </div>
+        <h1>¡Una imagen inspirada en Alpina!</h1>
+        <p>A continuación, la imagen que has solicitado:</p>
+        <img src="https://co.pinterest.com/pin/725853664983285900/" alt="Imagen decorada de Alpina">
     </div>
-
-    <script>
-        const fileUpload = document.getElementById('file-upload');
-        const imagePreview = document.getElementById('image-preview');
-        const placeholder = document.querySelector('#image-preview .placeholder');
-
-        fileUpload.addEventListener('change', function() {
-            const file = this.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    if (placeholder) {
-                        placeholder.style.display = 'none';
-                    }
-                    // Limpia la vista previa anterior si existe
-                    const existingImg = imagePreview.querySelector('img');
-                    if(existingImg) {
-                        existingImg.remove();
-                    }
-                    
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    imagePreview.appendChild(img);
-                }
-
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
 
 </body>
 </html>
