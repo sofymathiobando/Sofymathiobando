@@ -3,67 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Sofymatiobando</title>
+    <title>Visor de Imágenes - Estilo Alpina</title>
     <style>
+        /* --- Paleta de Colores Inspirada en Alpina --- */
+        :root {
+            --alpina-azul-principal: #0057A8; /* Azul corporativo de Alpina */
+            --alpina-azul-claro: #E6F2FA;    /* Un tono suave para fondos */
+            --texto-oscuro: #333333;
+            --blanco-puro: #FFFFFF;
+            --borde-color: #BBDDF2;
+        }
+
+        /* --- Estilos Generales --- */
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
+            background-color: var(--alpina-azul-claro);
+            color: var(--texto-oscuro);
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
+        /* --- Contenedor Principal --- */
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: var(--blanco-puro);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
+            width: 90%;
+            max-width: 500px;
         }
-        .header img {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
+
+        /* --- Encabezado --- */
+        .header {
+            background-color: var(--alpina-azul-principal);
+            color: var(--blanco-puro);
+            padding: 1.5rem;
+            margin: -2.5rem -2.5rem 2rem -2.5rem;
+            border-radius: 15px 15px 0 0;
         }
-        .image-gallery img {
-            width: 45%;
-            margin: 10px;
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        /* --- Área de Carga de Imagen --- */
+        .upload-wrapper {
+            border: 2px dashed var(--borde-color);
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
         }
-        .social-links {
-            margin-top: 20px;
+
+        .upload-wrapper p {
+            margin: 0 0 1rem 0;
+            font-size: 1.1em;
         }
-        .social-links img {
-            height: 40px;
-            margin: 0 10px;
+
+        /* --- Botón Personalizado --- */
+        .upload-btn {
+            background-color: var(--alpina-azul-principal);
+            color: var(--blanco-puro);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s;
         }
-        h1, h2 {
-            color: #333;
+
+        .upload-btn:hover {
+            background-color: #004687; /* Un azul un poco más oscuro */
+        }
+
+        /* Ocultar el input de archivo original */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* --- Vista Previa de la Imagen --- */
+        #image-preview {
+            margin-top: 1.5rem;
+        }
+
+        #image-preview img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--borde-color);
+        }
+
+        #image-preview .placeholder {
+            color: #888;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="header">
-            <img src="https://media.giphy.com/media/Q81N4Xp2I8VwDkF1lY/giphy.gif" alt="GIF de bienvenida">
-            <h1>¡Hola, Soy Sofym! 👋</h1>
-            <p>AQUÍ TE PRESENTO MIS BOARD.</p>
+            <h1>Sube tu Imagen</h1>
         </div>
 
-        <hr>
-
-        <div class="image-gallery">
-            <h2>Mis Fotos 📸</h2>
-            <img src="https://raw.githubusercontent.com/sofymatiobando/sofymatiobando/main/Brandboard.jpg" alt="Descripción de tu foto 1">
-            <img src="https://raw.githubusercontent.com/sofymatiobando/sofymatiobando/main/Brandboard2.jpg" alt="Descripción de tu foto 2">
+        <div class="upload-wrapper">
+            <p>Selecciona un archivo de imagen</p>
+            <label for="file-upload" class="upload-btn">
+                Elegir Archivo
+            </label>
+            <input type="file" id="file-upload" accept="image/*">
         </div>
 
-        <hr>
-
-            </a>
+        <div id="image-preview">
+            <p class="placeholder">La imagen seleccionada aparecerá aquí.</p>
         </div>
     </div>
+
+    <script>
+        const fileUpload = document.getElementById('file-upload');
+        const imagePreview = document.getElementById('image-preview');
+        const placeholder = document.querySelector('#image-preview .placeholder');
+
+        fileUpload.addEventListener('change', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                    // Limpia la vista previa anterior si existe
+                    const existingImg = imagePreview.querySelector('img');
+                    if(existingImg) {
+                        existingImg.remove();
+                    }
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imagePreview.appendChild(img);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
 </body>
+</html>
